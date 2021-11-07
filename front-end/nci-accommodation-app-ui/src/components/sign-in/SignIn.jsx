@@ -10,8 +10,8 @@ export default function SignIn() {
     <ThemeProvider theme={theme}>
     <Grid container alignItems="center" justifyContent="center"
     >
-    <Paper elevation={24} style={{height:"60vh",width:"40vw",display:"flex",alignItems:"space-between",justifyContent:"center"}}>
-        <Grid container direction="column" alignItems="center" height="60vh" width="40vw">
+    <Paper elevation={24} style={{height:"50vh",width:"80vw",display:"flex",alignItems:"space-between",justifyContent:"center"}}>
+        <Grid container direction="column" alignItems="center" height="50vh" width="80vw">
         <Grid item container direction="column" xs={4} md={4} spacing={2} justifyContent="center">
         Avatar
         </Grid>
