@@ -2,6 +2,7 @@ import About from "../about/About";
 import ContactUs from "../contact_us/ContactUs";
 import Home from "../home/Home";
 import Profile from "../profile/Profile";
+import SignIn from "../sign-in/SignIn";
 
 export const tabs={
     "Home":{
@@ -23,5 +24,10 @@ export const tabs={
         name:"Contact_us",
         url:"/contact-us",
         file:ContactUs
+    },
+    "Sign_in":{
+        name:"Sign_in",
+        url:"/sign-in",
+        file:SignIn
     }
 }

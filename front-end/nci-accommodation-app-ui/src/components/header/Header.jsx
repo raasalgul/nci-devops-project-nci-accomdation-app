@@ -3,7 +3,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import theme from "../themes/Theme"
-// import Button from '@mui/material/Button';
+import Button from '@mui/material/Button';
 
 const useStyle=makeStyles({
     link_style:{
@@ -16,7 +16,8 @@ function Header(){
     const classes=useStyle();
     return(
     <ThemeProvider theme={theme}>
-    <Grid container justifyContent="space-between" style={{ backgroundColor: theme.palette.primary.main,color:theme.palette.primary.light}}>
+    <Grid container justifyContent="space-between" 
+    style={{ backgroundColor: theme.palette.primary.main,color:theme.palette.primary.light,marginBottom:"3em"}}>
         <Grid item container xs={10} md={11} spacing={2}>
         <Grid item xs={2} md={1}>
         <Link to="/home" className={classes.link_style}><p>Home</p></Link>
@@ -34,10 +35,10 @@ function Header(){
             <Grid item container xs={2} md={1} justifyContent="flex-end">
             <Grid item xs={6}
             >
-            {/* <Button 
+            <Button 
             style={{ backgroundColor: theme.palette.secondary.main,
             color:theme.palette.primary.light,minHeight:'50px'}}>
-                SK</Button> */}
+                SK</Button>
             </Grid>
             </Grid>
         </Grid>

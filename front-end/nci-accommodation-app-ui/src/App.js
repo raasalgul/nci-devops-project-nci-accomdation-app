@@ -24,6 +24,10 @@ function App() {
             path={tabs.Contact_us.url}
             component={tabs.Contact_us.file}
           />
+          <Route
+            path={tabs.Sign_in.url}
+            component={tabs.Sign_in.file}
+          />
      <Route exact path="/">
     {/* <Redirect to="/login" /> */}
 </Route>
