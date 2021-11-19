@@ -1,7 +1,7 @@
 import './App.css';
 import Header from './components/header/Header';
 import {tabs} from './components/constants/Contants';
-import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'
+import {BrowserRouter as Router,Route,Switch,Redirect} from 'react-router-dom'
 function App() {
   return (
     <Router>
@@ -33,7 +33,7 @@ function App() {
             component={tabs.Sign_up.file}
           />
      <Route exact path="/">
-    {/* <Redirect to="/login" /> */}
+    <Redirect to="/sign-in" />
 </Route>
 </Switch>
     </div>

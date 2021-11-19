@@ -2,9 +2,18 @@ import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import { Button, Grid, Paper } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import theme from "../themes/Theme"
+import { Link } from 'react-router-dom';
 
+const useStyle=makeStyles({
+  link_style:{
+      textDecoration: 'none',
+      color:'#FFF'
+  }
+})
 export default function SignIn() {
+  const classes=useStyle();
     let error=React.useState(false);
   return (
     <ThemeProvider theme={theme}>
@@ -34,8 +43,15 @@ export default function SignIn() {
           helperText={error[0]?"Incorrect Username or Password.":""}
         />
         </Grid>
+        <Grid item container justifyContent="center" spacing={3}>
         <Grid item>
         <Button variant="contained">Login</Button>
+        </Grid>
+        <Grid item justifyContent="center" alignSelf="center">
+        <Link to="/sign-up" className={classes.link_style}>
+        <Button variant="contained">SignUp</Button>
+        </Link>
+        </Grid>
         </Grid>
    </Grid>
    </Grid>

@@ -17,7 +17,7 @@ function Header(){
     return(
     <ThemeProvider theme={theme}>
     <Grid container justifyContent="space-between" 
-    style={{ backgroundColor: theme.palette.primary.main,color:theme.palette.primary.light,marginBottom:"3em"}}>
+    style={{ backgroundColor: theme.palette.primary.main,color:theme.palette.primary.light,marginBottom:"3em",marginRight:"1em"}}>
         <Grid item container xs={10} md={11} spacing={2}>
         <Grid item xs={2} md={1}>
         <Link to="/home" className={classes.link_style}><p>Home</p></Link>
