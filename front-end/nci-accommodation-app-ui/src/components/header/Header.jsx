@@ -37,7 +37,7 @@ function Header(){
             >
             <Button 
             style={{ backgroundColor: theme.palette.secondary.main,
-            color:theme.palette.primary.light,minHeight:'50px'}}>
+            color:theme.palette.primary.light,minHeight:'57px'}}>
                 SK</Button>
             </Grid>
             </Grid>

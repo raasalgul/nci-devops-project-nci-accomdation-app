@@ -4,6 +4,6 @@ import theme from "../themes/Theme"
 export default function Profile(){
     
     return(<ThemeProvider theme={theme}>
-        Profile
+        Accommodation
     </ThemeProvider>)
 }
