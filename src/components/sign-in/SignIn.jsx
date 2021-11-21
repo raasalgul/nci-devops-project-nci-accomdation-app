@@ -22,7 +22,7 @@ export default function SignIn() {
     <Paper elevation={24} style={{height:"50vh",width:"40vw",display:"flex",alignItems:"space-between",justifyContent:"center"}}>
         <Grid container direction="column" alignItems="center" height="50vh" width="80vw">
         <Grid item container direction="column" xs={4} md={4} spacing={2} justifyContent="center">
-        Avatar
+        Avatars
         </Grid>
         <Grid item container direction="column" xs={8} md={8} justifyContent="center" spacing={2}>
         <Grid item>
