@@ -38,7 +38,7 @@ export default function Profile(){
            <div style={{display: 'block',marginLeft: 'auto',width: '54%'}}>
          <Avatar style={{width:100,height:100}} src="/broken-image.jpg" />
          <Grid>
-           {isEdit?
+           {!isEdit?
            <IconButton onClick={()=>{setIsEdit((previous)=>!previous)}}>
              <EditIcon>
                </EditIcon>

@@ -5,6 +5,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import theme from "../themes/Theme"
 import { Link } from 'react-router-dom';
+import Avatar from '@material-ui/core/Avatar';
 
 const useStyle=makeStyles({
   link_style:{
@@ -22,7 +23,9 @@ export default function SignIn() {
     <Paper elevation={24} style={{height:"50vh",width:"40vw",display:"flex",alignItems:"space-between",justifyContent:"center"}}>
         <Grid container direction="column" alignItems="center" height="50vh" width="80vw">
         <Grid item container direction="column" xs={4} md={4} spacing={2} justifyContent="center">
-        Avatarss
+        <div style={{display: 'block',marginLeft: 'auto',width: '54%'}}>
+        <Avatar style={{width:100,height:100}} src="/broken-image.jpg" />
+        </div>
         </Grid>
         <Grid item container direction="column" xs={8} md={8} justifyContent="center" spacing={2}>
         <Grid item>
