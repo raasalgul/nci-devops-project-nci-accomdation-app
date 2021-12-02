@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import theme from "../themes/Theme"
 import Button from '@mui/material/Button';
+import {useState} from 'react';
 
 const useStyle=makeStyles({
     link_style:{
@@ -14,6 +15,7 @@ const useStyle=makeStyles({
 
 function Header(){
     const classes=useStyle();
+    const [isAvatarClick,setIsAvatarClick]=useState(false);
     return(
     <ThemeProvider theme={theme}>
     <Grid container justifyContent="space-between" 
@@ -37,11 +39,18 @@ function Header(){
             >
             <Button 
             style={{ backgroundColor: theme.palette.secondary.main,
-            color:theme.palette.primary.light,minHeight:'57px'}}>
+            color:theme.palette.primary.light,minHeight:'57px'}}
+            onClick={()=>{
+                setIsAvatarClick((state)=>{return !state});
+            }}
+            >
                 SK</Button>
             </Grid>
             </Grid>
-        </Grid>
+        </Grid> 
+        {isAvatarClick? <Grid container justifyContent="flex-end">
+      <Button variant="contained">Logout</Button>
+      </Grid>:null}
         </ThemeProvider>
         )
 }
