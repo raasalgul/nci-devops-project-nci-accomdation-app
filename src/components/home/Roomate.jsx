@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@mui/material/styles';
 import theme from "../themes/Theme"
-import Card from './Cards/Card'
+import Card from './Cards/RoomateCard'
 import Grid from '@material-ui/core/Grid';
 export default function Profile(){
     let test=['Itachi','Uchiya','Naruto','Usumaki','Sasuke','De tara','Menato','Kushina','Jiraya','Orachi maru','Sarutobi',
