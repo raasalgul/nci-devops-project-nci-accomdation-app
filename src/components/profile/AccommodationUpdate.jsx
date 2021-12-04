@@ -6,8 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import {useState} from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button, Grid, IconButton, TextField } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 
 const useStyles = makeStyles({
     root: {
@@ -19,23 +17,28 @@ const useStyles = makeStyles({
 
 export default function AccommodationUpdate(){
     let data={
-        name:'Sathish',
-        age:'25',
-        course:'Ms in Cloud Computing',
-        service:'Roomate',
-        phoneNumber:'123456789',
-        emailId:'sats@gmail.com',
-        profilePic:'http:/url'
-    }
+      "userId":"234fjsk4543",
+      "area":"Pannal street",
+      "eirCode":"D2W10",
+      "duration":"1 year",
+      "availablity":"01-01-2022",
+      "education":"Master's in Cloud",
+      "work":"Student",
+      "picture":"s3://test-cool/profile-picture/id-18:31:31-IMG_20210925_173906.jpg",
+      "rent":"500 euros",
+      "description":"Clean house"
+  }
     const [isEdit,setIsEdit]=useState(true);
-    const [service, setService] = useState('');
+    const [uploadedFile,setUploadedFile]=useState();
+    const [uploadedUrl,setUploadedUrl]=useState();
     const classes = useStyles();
     return(<ThemeProvider theme={theme}>
           <Card className={classes.root} variant="outlined">
          <CardContent>
-           
+         <Grid alignSelf="center">
+              <Typography>Accomodation Update</Typography>
+              </Grid>
            <div style={{display: 'block',marginLeft: 'auto',width: '54%'}}>
-              Accomodation Update
          <Grid>
            {isEdit?
            <IconButton onClick={()=>{setIsEdit((previous)=>!previous)}}>
@@ -50,49 +53,94 @@ export default function AccommodationUpdate(){
                </Grid>
          </div>
         <br/><br/>
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Name:</Typography>
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Area:</Typography>
           {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.name}</Typography>:
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.area}</Typography>:
           <TextField></TextField>
           }
         <br/><br/>
-        <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Age:
+        <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">EirCode:
           </Typography> 
           {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.age}</Typography>:
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.eirCode}</Typography>:
           <TextField></TextField>
           }
         <br/><br/>
-        <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Course:
+        <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Duration:
           </Typography>
           {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.course}</Typography>:
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.duration}</Typography>:
           <TextField></TextField>
           }
         <br/><br/>
-        <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Service:
+        <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Availablity:
           </Typography> 
           {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.service}</Typography>:
-          <Select
-          value={service}
-          onChange={(event)=>{setService(event.target.value)}}
-        >
-          <MenuItem value={'roommate'}>Roommate</MenuItem>
-          <MenuItem value={'accommodation'}>Accommodation</MenuItem>
-          <MenuItem value={'no-service'}>No Service</MenuItem>
-        </Select>
-          }
-        <br/><br/>
-        <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Phone number:
-          </Typography>
-          {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.phoneNumber}</Typography>:
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.availablity}</Typography>:
           <TextField></TextField>
           }
         <br/><br/>
-        <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Email Id:
-          </Typography> <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.emailId}</Typography>
+        <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Education:
+          </Typography>
+          {isEdit?
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.education}</Typography>:
+          <TextField></TextField>
+          }
+        <br/><br/>
+        <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Work:
+          </Typography> 
+          {isEdit?
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.work}</Typography>:
+          <TextField></TextField>
+          }
+          <br/><br/>
+          <Grid container justifyContent="center" spacing={0}>
+        <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Picture:
+          </Typography>
+          {isEdit?
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.picture}</Typography>:
+          <Grid>
+          <input
+          accept="image/*"
+          // className={classes.input}
+          style={{ display: 'none' }}
+          id="upload-button"
+          multiple
+          type="file"
+          onChange={(event)=>{
+            setUploadedFile(event.target.files[0])
+            console.log(event.target.files)
+            console.log(URL.createObjectURL(event.target.files[0]))
+            setUploadedUrl(URL.createObjectURL(event.target.files[0]))
+          }}
+        />
+        <label htmlFor="upload-button">
+          <Button variant="contained" component="span" color="secondary" className={classes.button}
+          onClick={(param)=>{
+            console.log(param.target)
+          }}
+          >
+            Upload
+          </Button>
+        </label>
+        {/* <img src={uploadedUrl} alt="uploaded"></img> */}
+        <Typography>{uploadedFile.name}</Typography>
+        </Grid> }
+        </Grid>
+          <br/><br/>
+        <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Rent:
+          </Typography> 
+          {isEdit?
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.rent}</Typography>:
+          <TextField></TextField>
+          }
+          <br/><br/>
+        <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Description:
+          </Typography>
+          {isEdit?
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.description}</Typography>:
+          <TextField></TextField>
+          }
       </CardContent>
     </Card>
     </ThemeProvider>)
