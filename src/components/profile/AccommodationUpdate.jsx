@@ -29,14 +29,14 @@ export default function AccommodationUpdate(){
       "description":"Clean house"
   }
     const [isEdit,setIsEdit]=useState(true);
-    const [uploadedFile,setUploadedFile]=useState();
-    const [uploadedUrl,setUploadedUrl]=useState();
+    const [uploadedFile,setUploadedFile]=useState([{'name':''}]);
+    // const [uploadedUrl,setUploadedUrl]=useState({'name':'hi'});
     const classes = useStyles();
     return(<ThemeProvider theme={theme}>
           <Card className={classes.root} variant="outlined">
          <CardContent>
          <Grid alignSelf="center">
-              <Typography>Accomodation Update</Typography>
+              <Typography variant="h4">Accomodation Update</Typography>
               </Grid>
            <div style={{display: 'block',marginLeft: 'auto',width: '54%'}}>
          <Grid>
@@ -45,9 +45,13 @@ export default function AccommodationUpdate(){
              <EditIcon>
                </EditIcon>
                </IconButton>:
-               <Grid>
-               <Button variant="contained" color="secondary" onClick={()=>{setIsEdit((previous)=>!previous)}}>Save</Button>
-               <Button variant="contained" color="secondary" onClick={()=>{setIsEdit((previous)=>!previous)}}>Cancel</Button>
+               <Grid spacing={2}>
+               <Button variant="contained" onClick={()=>{setIsEdit((previous)=>!previous)}}
+               style={{marginRight:"8px", backgroundColor:"#2EC4B6"}}
+               >Save</Button>
+               <Button variant="contained" color="secondary" onClick={()=>{setIsEdit((previous)=>!previous)}}
+               style={{backgroundColor:"#2EC4B6"}}
+               >Cancel</Button>
                </Grid>
                }
                </Grid>
@@ -108,14 +112,19 @@ export default function AccommodationUpdate(){
           multiple
           type="file"
           onChange={(event)=>{
-            setUploadedFile(event.target.files[0])
+            let files=[];
+            for(let i=0;i<event.target.files.length;i++)
+            {
+              files.push(event.target.files[i])
+            }
+            setUploadedFile(files)
             console.log(event.target.files)
             console.log(URL.createObjectURL(event.target.files[0]))
-            setUploadedUrl(URL.createObjectURL(event.target.files[0]))
+            // setUploadedUrl(URL.createObjectURL(event.target.files[0]))
           }}
         />
         <label htmlFor="upload-button">
-          <Button variant="contained" component="span" color="secondary" className={classes.button}
+          <Button variant="contained" component="span" style={{backgroundColor:"#2EC4B6"}}
           onClick={(param)=>{
             console.log(param.target)
           }}
@@ -124,7 +133,9 @@ export default function AccommodationUpdate(){
           </Button>
         </label>
         {/* <img src={uploadedUrl} alt="uploaded"></img> */}
-        <Typography>{uploadedFile.name}</Typography>
+        {uploadedFile.map((file)=>{
+          return <Typography>{file.name}</Typography>
+        })}
         </Grid> }
         </Grid>
           <br/><br/>

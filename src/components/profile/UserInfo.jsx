@@ -44,8 +44,8 @@ export default function UserInfo(){
                </EditIcon>
                </IconButton>:
                <Grid>
-               <Button variant="contained" color="secondary" onClick={()=>{setIsEdit((previous)=>!previous)}}>Save</Button>
-               <Button variant="contained" color="secondary" onClick={()=>{setIsEdit((previous)=>!previous)}}>Cancel</Button>
+               <Button variant="contained" style={{backgroundColor:"#2EC4B6", marginRight:"5px"}} onClick={()=>{setIsEdit((previous)=>!previous)}}>Save</Button>
+               <Button variant="contained" style={{backgroundColor:"#2EC4B6"}} onClick={()=>{setIsEdit((previous)=>!previous)}}>Cancel</Button>
                </Grid>
                }
                </Grid>
