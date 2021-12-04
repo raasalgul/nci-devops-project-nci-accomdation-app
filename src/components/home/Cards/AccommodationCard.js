@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
           <h1><span className={classes.heading}>Education: </span>{props.education}</h1>
           <h1><span className={classes.heading}>Work: </span>{props.work}</h1>
           <h1><span className={classes.heading}>Rent: </span>{props.rent}</h1>
+          <h1><span className={classes.heading}>UserInfo: </span>{props.userId}</h1>
           <Grid
           className={classes.button}
           >

@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import theme from "../themes/Theme"
 import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
+import {UserInfoContext} from "../../App"
+import { useContext,useEffect } from 'react';
 
 const useStyle=makeStyles({
   link_style:{
@@ -14,6 +16,11 @@ const useStyle=makeStyles({
   }
 })
 export default function SignIn() {
+  const userInfoContext = useContext(UserInfoContext)
+  useEffect(()=>{
+  userInfoContext.userInfoDispatch({type:'userState',payload:{"userId":"4321"}})
+  }
+  )
   const classes=useStyle();
     let error=React.useState(false);
   return (
