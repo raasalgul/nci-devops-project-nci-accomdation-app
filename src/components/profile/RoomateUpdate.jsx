@@ -29,12 +29,13 @@ export default function AccommodationUpdate(){
       "description":"Clean house"
   }
     const [isEdit,setIsEdit]=useState(true);
+    const [uploadedFile,setUploadedFile]=useState([{'name':''}]);
     const classes = useStyles();
     return(<ThemeProvider theme={theme}>
           <Card className={classes.root} variant="outlined">
          <CardContent>
          <Grid alignSelf="center">
-              <Typography>Roommate Update</Typography>
+              <Typography variant="h4">Roommate Update</Typography>
               </Grid>
            <div style={{display: 'block',marginLeft: 'auto',width: '54%'}}>
          <Grid>
@@ -43,9 +44,10 @@ export default function AccommodationUpdate(){
              <EditIcon>
                </EditIcon>
                </IconButton>:
-               <Grid>
-               <Button variant="contained" color="secondary" onClick={()=>{setIsEdit((previous)=>!previous)}}>Save</Button>
-               <Button variant="contained" color="secondary" onClick={()=>{setIsEdit((previous)=>!previous)}}>Cancel</Button>
+               <Grid spacing={2}> 
+               <Button variant="contained" style={{marginRight:"8px", backgroundColor:"#2EC4B6"}}
+                 onClick={()=>{setIsEdit((previous)=>!previous)}}>Save</Button>
+               <Button variant="contained" style={{backgroundColor:"#2EC4B6"}} onClick={()=>{setIsEdit((previous)=>!previous)}}>Cancel</Button>
                </Grid>
                }
                </Grid>
@@ -92,12 +94,47 @@ export default function AccommodationUpdate(){
           <TextField></TextField>
           }
           <br/><br/>
+          <Grid container justifyContent="center" spacing={0}>
         <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Picture:
           </Typography>
+
           {isEdit?
           <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.picture}</Typography>:
-          <Button variant="contained" color="secondary">Upload</Button>
-          }
+          <Grid>
+          <input
+          accept="image/*"
+          // className={classes.input}
+          style={{ display: 'none' }}
+          id="upload-button"
+          multiple
+          type="file"
+          onChange={(event)=>{
+            let files=[];
+            for(let i=0;i<event.target.files.length;i++)
+            {
+              files.push(event.target.files[i])
+            }
+            setUploadedFile(files)
+            console.log(event.target.files)
+            console.log(URL.createObjectURL(event.target.files[0]))
+            // setUploadedUrl(URL.createObjectURL(event.target.files[0]))
+          }}
+        />
+        <label htmlFor="upload-button">
+          <Button variant="contained" component="span" style={{backgroundColor:"#2EC4B6"}}
+          onClick={(param)=>{
+            console.log(param.target)
+          }}
+          >
+            Upload
+          </Button>
+        </label>
+        {/* <img src={uploadedUrl} alt="uploaded"></img> */}
+        {uploadedFile.map((file)=>{
+          return <Typography>{file.name}</Typography>
+        })}
+        </Grid> }
+        </Grid>
           <br/><br/>
         <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Rent:
           </Typography> 

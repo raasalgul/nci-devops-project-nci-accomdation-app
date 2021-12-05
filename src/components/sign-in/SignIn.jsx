@@ -19,7 +19,7 @@ export default function SignIn() {
   const userInfoContext = useContext(UserInfoContext)
   useEffect(()=>{
   userInfoContext.userInfoDispatch({type:'userState',payload:{"userId":"4321"}})
-  }
+  },[]
   )
   const classes=useStyle();
     let error=React.useState(false);

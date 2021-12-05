@@ -4,16 +4,19 @@ import { Grid } from '@mui/material';
 import UserInfo from './UserInfo'
 import AccommodationUpdate from './AccommodationUpdate';
 import RoomateUpdate from './RoomateUpdate';
+import { useContext,useEffect, useState } from 'react';
+import {UserInfoContext} from "../../App"
 
 export default function Profile(){
-  let service="accomodation"; //accommodation, no-service
+  const userInfoContext = useContext(UserInfoContext)
+  let service=userInfoContext.userInfoState.service; //accommodation, no-service
     return(<ThemeProvider theme={theme}>
       <Grid container direction="column" spacing={2}>
        <Grid item xs={5}>
         <UserInfo/>
        </Grid>
-       {service==="roomate" || "accomodation"?
-        service==="accomodation" ? 
+       {service==="Roommate" || service=== "Accommodation"?
+        service==="Accommodation" ? 
         <Grid item xs={5}><AccommodationUpdate></AccommodationUpdate></Grid>
         :<Grid item xs={5}><RoomateUpdate></RoomateUpdate></Grid>
         :null

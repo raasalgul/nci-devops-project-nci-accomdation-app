@@ -4,32 +4,45 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import {useState} from 'react';
+import {useState,useEffect,useContext} from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button, Grid, IconButton, TextField } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import {UserInfoContext} from "../../App"
 
 const useStyles = makeStyles({
     root: {
       minWidth: 444,
       alignContent:'center'
     },
+    textFields:{
+      marginLeft:20
+    }
   });
   
 
 export default function UserInfo(){
-    let data={
-        name:'Sathish',
-        age:'25',
-        course:'Ms in Cloud Computing',
-        service:'Roomate',
-        phoneNumber:'123456789',
-        emailId:'sats@gmail.com',
-        profilePic:'http:/url'
-    }
-    const [isEdit,setIsEdit]=useState(true);
-    const [service, setService] = useState('');
+  const [data,setData]= useState({});
+  const [isEdit,setIsEdit]=useState(true);
+  const [service, setService] = useState('');
+  const userInfoContext = useContext(UserInfoContext)
+  useEffect(()=>{
+     let serverData={
+      name:'Sathish',
+      age:'25',
+      course:'Ms in Cloud Computing',
+      service:'Roommate',
+      phoneNumber:'123456789',
+      emailId:'sats@gmail.com',
+      profilePic:'http:/url'
+  }
+  setData(serverData)
+  setService(serverData.service)
+  userInfoContext.userInfoDispatch({type:'userState',payload:{... userInfoContext.userInfoState,"service":serverData.service}})
+    },[]
+    )
+   
     const classes = useStyles();
     return(<ThemeProvider theme={theme}>
           <Card className={classes.root} variant="outlined">
@@ -54,7 +67,7 @@ export default function UserInfo(){
           <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Name:</Typography>
           {isEdit?
           <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.name}</Typography>:
-          <TextField></TextField>
+          <TextField className={classes.textFields}></TextField>
           }
         <br/><br/>
         <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Age:
@@ -74,14 +87,16 @@ export default function UserInfo(){
         <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Service:
           </Typography> 
           {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.service}</Typography>:
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{service}</Typography>:
           <Select
           value={service}
-          onChange={(event)=>{setService(event.target.value)}}
+          onChange={(event)=>{setService(event.target.value)
+          userInfoContext.userInfoDispatch({type:'userState',payload:{... userInfoContext.userInfoState,"service":event.target.value}})
+          }}
         >
-          <MenuItem value={'roommate'}>Roommate</MenuItem>
-          <MenuItem value={'accommodation'}>Accommodation</MenuItem>
-          <MenuItem value={'no-service'}>No Service</MenuItem>
+          <MenuItem value={'Roommate'}>Roommate</MenuItem>
+          <MenuItem value={'Accommodation'}>Accommodation</MenuItem>
+          <MenuItem value={'No service'}>No Service</MenuItem>
         </Select>
           }
         <br/><br/>

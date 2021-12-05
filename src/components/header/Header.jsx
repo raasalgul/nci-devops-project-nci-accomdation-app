@@ -4,7 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import theme from "../themes/Theme"
 import Button from '@mui/material/Button';
-import {useState} from 'react';
+import {useState,useContext,useEffect} from 'react';
+import {UserInfoContext} from "../../App"
+
 
 const useStyle=makeStyles({
     link_style:{
@@ -15,7 +17,15 @@ const useStyle=makeStyles({
 
 function Header(){
     const classes=useStyle();
+    const userInfoContext = useContext(UserInfoContext)
     const [isAvatarClick,setIsAvatarClick]=useState(false);
+    const [isLogin,setIsLogin]=useState(false);
+    useEffect(()=>{
+        //userInfoContext.userInfoDispatch({type:'userState',payload:{"userId":"4321"}})
+        setIsLogin(userInfoContext.userInfoState.userId!=="")
+        },[userInfoContext.userInfoState.userId]
+        )
+
     return(
     <ThemeProvider theme={theme}>
     <Grid container justifyContent="space-between" 
@@ -48,7 +58,8 @@ function Header(){
             </Grid>
             </Grid>
         </Grid> 
-        {isAvatarClick? <Grid container justifyContent="flex-end">
+        {console.log(isLogin&&isAvatarClick)}
+        {isLogin&&isAvatarClick? <Grid container justifyContent="flex-end">
       <Button variant="contained">Logout</Button>
       </Grid>:null}
         </ThemeProvider>

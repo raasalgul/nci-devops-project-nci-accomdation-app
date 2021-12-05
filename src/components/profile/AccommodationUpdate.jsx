@@ -49,7 +49,7 @@ export default function AccommodationUpdate(){
                <Button variant="contained" onClick={()=>{setIsEdit((previous)=>!previous)}}
                style={{marginRight:"8px", backgroundColor:"#2EC4B6"}}
                >Save</Button>
-               <Button variant="contained" color="secondary" onClick={()=>{setIsEdit((previous)=>!previous)}}
+               <Button variant="contained" onClick={()=>{setIsEdit((previous)=>!previous)}}
                style={{backgroundColor:"#2EC4B6"}}
                >Cancel</Button>
                </Grid>
