@@ -7,7 +7,8 @@ import theme from "../themes/Theme"
 import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import {UserInfoContext} from "../../App"
-import { useContext,useEffect } from 'react';
+import { useContext,useEffect,useState } from 'react';
+import AuthService from "../services/auth.service";
 
 const useStyle=makeStyles({
   link_style:{
@@ -15,12 +16,54 @@ const useStyle=makeStyles({
       color:'#FFF'
   }
 })
-export default function SignIn() {
+export default function SignIn(props) {
+
+  function onChangeUsername(e) {
+    setUsername(e.target.value);
+  }
+
+  function onChangePassword(e) {
+    setPassword(e.target.value);
+  }
+
+  function handleLogin(e) {
+    e.preventDefault();
+    setMessage("");
+    setLoading(true);
+
+    // form.validateAll();
+console.log(message.length)
+    if (message.length === 0) {
+      AuthService.login(username,password).then(
+        (res) => {
+          console.log(res)
+          userInfoContext.userInfoDispatch({type:'userState',payload:{"userId":res.accessToken}})
+          props.history.push("/home");
+         // window.location.reload();
+        },
+        error => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+            setMessage(resMessage);
+            setLoading(false);
+        }
+      );
+    } else { 
+      setLoading(false);
+    }
+  }
+
+  const [username, setUsername] = useState('');
+  const [password,setPassword]=useState('');
+  const [message, setMessage] = useState('');
+  const [loading,setLoading]=useState(false);
+
   const userInfoContext = useContext(UserInfoContext)
-  useEffect(()=>{
-  userInfoContext.userInfoDispatch({type:'userState',payload:{"userId":"4321"}})
-  },[]
-  )
+
   const classes=useStyle();
     let error=React.useState(false);
   return (
@@ -40,6 +83,8 @@ export default function SignIn() {
           error={error[0]}
           id="userName"
           label="UserName"
+          value={username}
+          onChange={onChangeUsername}
           //defaultValue="Hello World"
         />
         </Grid>
@@ -49,13 +94,15 @@ export default function SignIn() {
           id="password"
           label="Password"
           type="password"
+          value={password}
+          onChange={onChangePassword}
           //defaultValue="Hello World"
           helperText={error[0]?"Incorrect Username or Password.":""}
         />
         </Grid>
         <Grid item container justifyContent="center" spacing={3}>
         <Grid item>
-        <Button variant="contained">Login</Button>
+        <Button variant="contained" onClick={handleLogin}>Login</Button>
         </Grid>
         <Grid item justifyContent="center" alignSelf="center">
         <Link to="/sign-up" className={classes.link_style}>

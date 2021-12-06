@@ -3,9 +3,18 @@ import TextField from '@mui/material/TextField';
 import { Button, Grid, Paper } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from "../themes/Theme"
+import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
+const useStyle=makeStyles({
+  link_style:{
+      textDecoration: 'none',
+      color:'#FFF'
+  }
+})
 export default function SignIn() {
     let error=React.useState(false);
+    const classes=useStyle();
   return (
     <ThemeProvider theme={theme}>
     <Grid container alignItems="center" justifyContent="center"
@@ -72,7 +81,10 @@ export default function SignIn() {
         </Grid>
         </Grid>
         <Grid item>
-        <Button variant="contained" color="secondary">Submit</Button>
+        <Button variant="contained" style={{marginRight:"8px"}} color="secondary">Submit</Button>
+        <Link to="/sign-in" className={classes.link_style}>
+        <Button variant="contained" color="secondary" >Login</Button>
+        </Link>
         </Grid>
    </Grid>
    </Grid>

@@ -28,6 +28,8 @@ function Header(){
 
     return(
     <ThemeProvider theme={theme}>
+         {isLogin? 
+        <div>
     <Grid container justifyContent="space-between" 
     style={{ backgroundColor: theme.palette.primary.main,color:theme.palette.primary.light,marginBottom:"3em",marginRight:"1em"}}>
         <Grid item container xs={10} md={11} spacing={2}>
@@ -58,10 +60,14 @@ function Header(){
             </Grid>
             </Grid>
         </Grid> 
-        {console.log(isLogin&&isAvatarClick)}
-        {isLogin&&isAvatarClick? <Grid container justifyContent="flex-end">
+        {isAvatarClick?
+       <Grid container justifyContent="flex-end">
       <Button variant="contained">Logout</Button>
-      </Grid>:null}
+      </Grid>:null
+            }
+      </div>
+      : <div 
+      style={{ backgroundColor: theme.palette.primary.main,color:theme.palette.primary.light,marginBottom:"3em",marginRight:"1em"}}><br/><br/><br/></div>}
         </ThemeProvider>
         )
 }
