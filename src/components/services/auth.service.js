@@ -4,6 +4,7 @@ const API_URL = `${serviceURLHost}/api/auth/`;
 
 class AuthService {
   login(userName, password) {
+    console.log(userName)
     return axios
       .post(API_URL + "sign-in", {
         userName,
@@ -28,17 +29,12 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
-  register( userName,
-    email,
-    password,
-    firstName,
-    lastName) {
-    return axios.post(API_URL + "signup", {
-      userName,
+  register( username,
+    password,email) {
+    return axios.post(API_URL + "sign-up", {
+      username,
        email,
-       password,
-       firstName,
-       lastName
+       password
     });
   }
 

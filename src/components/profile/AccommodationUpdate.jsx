@@ -34,7 +34,7 @@ export default function AccommodationUpdate(){
 
   );
   useEffect(()=>{
-    fetch(`${serviceURLHost}/accomodation/get`,{ headers: authHeader() }).then((response) => {
+    fetch(`${serviceURLHost}/nci/accomodation/get`,{ headers: authHeader() }).then((response) => {
       return response.json();
     })
     .then((myJson) => {

@@ -16,7 +16,7 @@ export default function Profile(){
       //   console.log(res.data)
       //   setAccommodationData(res.data)
       // })
-      fetch(`${serviceURLHost}/accomodation/retrieve`,{ headers: authHeader() }).then((response) => {
+      fetch(`${serviceURLHost}/nci/accomodation/retrieve`,{ headers: authHeader() }).then((response) => {
         return response.json();
       })
       .then((myJson) => {

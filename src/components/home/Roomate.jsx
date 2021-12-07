@@ -16,7 +16,7 @@ export default function Profile(){
       //   console.log(res.data)
       //   setroommateData(res.data)
       // })
-      fetch(`${serviceURLHost}/roommate/retrieve`,{ headers: authHeader() }).then((response) => {
+      fetch(`${serviceURLHost}/nci/roommate/retrieve`,{ headers: authHeader() }).then((response) => {
         return response.json();
       })
       .then((myJson) => {

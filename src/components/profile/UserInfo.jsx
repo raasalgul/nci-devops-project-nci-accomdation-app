@@ -13,7 +13,6 @@ import {UserInfoContext} from "../../App"
 import authHeader from '../services/auth-header';
 import {serviceURLHost} from "../constants/Constant"
 
-
 const useStyles = makeStyles({
     root: {
       minWidth: 444,
@@ -26,23 +25,58 @@ const useStyles = makeStyles({
   
 
 export default function UserInfo(){
-  const [data,setData]= useState({});
   const [isEdit,setIsEdit]=useState(true);
-  const [service, setService] = useState('');
-  const userInfoContext = useContext(UserInfoContext)
+  async function onSave() {
+    let requestData={... data};
+    requestData.age=age;
+    requestData.course=course;
+    requestData.services=service;
+    console.log(course)
+    console.log(requestData)
+    requestData.phoneNumber=phoneNumber;
+    let header={... authHeader(),'Content-Type':'application/json'}
+    const response = await fetch(`${serviceURLHost}/nci/user/put-info`, {
+      method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: header,
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *client
+      body: JSON.stringify(requestData) // body data type must match "Content-Type" header
+    });
+    return await response.json().then(()=>{
+     setData(data)
+     setAge(data.age)
+     setCourse(data.course)
+     setService(data.service)
+     setPhoneNumber(data.phoneNumber)
+     setIsEdit((previous)=>!previous)
+    }); // parses JSON response into native JavaScript objects
+  }
+
   useEffect(()=>{
-  fetch(`${serviceURLHost}/user/get-info`,{ headers: authHeader() }).then((response) => {
+  fetch(`${serviceURLHost}/nci/user/get-info`,{ headers: authHeader() }).then((response) => {
     return response.json();
   })
   .then((myJson) => {
     console.log(myJson)
     setData(myJson);
     setService(myJson.services)
+    setAge(myJson.age)
+    setCourse(myJson.course)
+    setPhoneNumber(myJson.phoneNumber)
     userInfoContext.userInfoDispatch({type:'userState',payload:{... userInfoContext.userInfoState,"service":myJson.services}})
     });
-    },[]
+    },[isEdit]
     )
-   
+    const [data,setData]= useState({});
+    const [service, setService] = useState('');
+    const userInfoContext = useContext(UserInfoContext)
+    const [age, setAge] = useState('');
+    const [course, setCourse] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
     const classes = useStyles();
     return(<ThemeProvider theme={theme}>
           <Card className={classes.root} variant="outlined">
@@ -57,7 +91,8 @@ export default function UserInfo(){
                </EditIcon>
                </IconButton>:
                <Grid>
-               <Button variant="contained" style={{backgroundColor:"#2EC4B6", marginRight:"5px"}} onClick={()=>{setIsEdit((previous)=>!previous)}}>Save</Button>
+               <Button variant="contained" style={{backgroundColor:"#2EC4B6", marginRight:"5px"}} 
+               onClick={onSave}>Save</Button>
                <Button variant="contained" style={{backgroundColor:"#2EC4B6"}} onClick={()=>{setIsEdit((previous)=>!previous)}}>Cancel</Button>
                </Grid>
                }
@@ -65,23 +100,24 @@ export default function UserInfo(){
          </div>
         <br/><br/>
           <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Name:</Typography>
-          {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.username}</Typography>:
-          <TextField className={classes.textFields}></TextField>
-          }
+          {/* {isEdit? */}
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.username}</Typography>
+           {/* : <TextField value={data.username} className={classes.textFields}></TextField> */}
+          {/* null */}
+          {/* } */}
         <br/><br/>
         <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Age:
           </Typography> 
           {isEdit?
           <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.age}</Typography>:
-          <TextField></TextField>
+          <TextField value= {age} onChange={(e)=>{setAge(e.target.value)}} ></TextField>
           }
         <br/><br/>
         <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Course:
           </Typography>
           {isEdit?
           <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.course}</Typography>:
-          <TextField></TextField>
+          <TextField value= {course} onChange={(e)=>{setCourse(e.target.value)}}></TextField>
           }
         <br/><br/>
         <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Service:
@@ -104,7 +140,7 @@ export default function UserInfo(){
           </Typography>
           {isEdit?
           <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.phoneNumber}</Typography>:
-          <TextField></TextField>
+          <TextField value= {phoneNumber} onChange={(e)=>{setPhoneNumber(e.target.value)}}></TextField>
           }
         <br/><br/>
         <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Email Id:
