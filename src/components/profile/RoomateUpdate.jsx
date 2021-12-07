@@ -3,10 +3,12 @@ import theme from "../themes/Theme"
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import {useState} from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button, Grid, IconButton, TextField } from '@mui/material';
-
+import {UserInfoContext} from "../../App"
+import { useContext,useEffect,useState } from 'react';
+import authHeader from '../services/auth-header';
+import {serviceURLHost} from "../constants/Constant"
 const useStyles = makeStyles({
     root: {
       minWidth: 444,
@@ -16,18 +18,44 @@ const useStyles = makeStyles({
   
 
 export default function AccommodationUpdate(){
-    let data={
-      "userId":"234fjsk4543",
-      "area":"Pannal street",
-      "eirCode":"D2W10",
-      "duration":"1 year",
-      "availablity":"01-01-2022",
-      "education":"Master's in Cloud",
-      "work":"Student",
-      "picture":"s3://test-cool/profile-picture/id-18:31:31-IMG_20210925_173906.jpg",
-      "rent":"500 euros",
-      "description":"Clean house"
-  }
+  const [data,setData]= useState(
+    {
+          "userId":"",
+          "area":[""],
+          "eirCode":[""],
+          "duration":"",
+          "availablity":"",
+          "education":"",
+          "work":"",
+          "picture":"",
+          "rent":"",
+          "description":""
+      }
+
+  );
+  useEffect(()=>{
+    fetch(`${serviceURLHost}/roommate/get`,{ headers: authHeader() }).then((response) => {
+      return response.json();
+    })
+    .then((myJson) => {
+      console.log(myJson)
+      setData(myJson);
+     // setLoad(true);
+      });
+     },[]
+     )
+  //   let data={
+  //     "userId":"234fjsk4543",
+  //     "area":"Pannal street",
+  //     "eirCode":"D2W10",
+  //     "duration":"1 year",
+  //     "availablity":"01-01-2022",
+  //     "education":"Master's in Cloud",
+  //     "work":"Student",
+  //     "picture":"s3://test-cool/profile-picture/id-18:31:31-IMG_20210925_173906.jpg",
+  //     "rent":"500 euros",
+  //     "description":"Clean house"
+  // }
     const [isEdit,setIsEdit]=useState(true);
     const [uploadedFile,setUploadedFile]=useState([{'name':''}]);
     const classes = useStyles();
@@ -55,14 +83,14 @@ export default function AccommodationUpdate(){
         <br/><br/>
           <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Area:</Typography>
           {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.area}</Typography>:
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.area.join(", ")}</Typography>:
           <TextField></TextField>
           }
         <br/><br/>
         <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">EirCode:
           </Typography> 
           {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.eirCode}</Typography>:
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.eirCode.join(", ")}</Typography>:
           <TextField></TextField>
           }
         <br/><br/>
@@ -99,7 +127,8 @@ export default function AccommodationUpdate(){
           </Typography>
 
           {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.picture}</Typography>:
+          <Grid>
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}><img src={"data:image/png;base64,"+data.picture.data} alt="logo" width="100 px" height="100 px"/></Typography></Grid>:
           <Grid>
           <input
           accept="image/*"
@@ -136,17 +165,17 @@ export default function AccommodationUpdate(){
         </Grid> }
         </Grid>
           <br/><br/>
-        <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Rent:
+        <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Budget:
           </Typography> 
           {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.rent}</Typography>:
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.budget}</Typography>:
           <TextField></TextField>
           }
           <br/><br/>
         <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Description:
           </Typography>
           {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.description}</Typography>:
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{'test'}</Typography>:
           <TextField></TextField>
           }
       </CardContent>

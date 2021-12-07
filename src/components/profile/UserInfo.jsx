@@ -10,6 +10,9 @@ import { Button, Grid, IconButton, TextField } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import {UserInfoContext} from "../../App"
+import authHeader from '../services/auth-header';
+import {serviceURLHost} from "../constants/Constant"
+
 
 const useStyles = makeStyles({
     root: {
@@ -28,18 +31,15 @@ export default function UserInfo(){
   const [service, setService] = useState('');
   const userInfoContext = useContext(UserInfoContext)
   useEffect(()=>{
-     let serverData={
-      name:'Sathish',
-      age:'25',
-      course:'Ms in Cloud Computing',
-      service:'Roommate',
-      phoneNumber:'123456789',
-      emailId:'sats@gmail.com',
-      profilePic:'http:/url'
-  }
-  setData(serverData)
-  setService(serverData.service)
-  userInfoContext.userInfoDispatch({type:'userState',payload:{... userInfoContext.userInfoState,"service":serverData.service}})
+  fetch(`${serviceURLHost}/user/get-info`,{ headers: authHeader() }).then((response) => {
+    return response.json();
+  })
+  .then((myJson) => {
+    console.log(myJson)
+    setData(myJson);
+    setService(myJson.services)
+    userInfoContext.userInfoDispatch({type:'userState',payload:{... userInfoContext.userInfoState,"service":myJson.services}})
+    });
     },[]
     )
    
@@ -66,7 +66,7 @@ export default function UserInfo(){
         <br/><br/>
           <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Name:</Typography>
           {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.name}</Typography>:
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.username}</Typography>:
           <TextField className={classes.textFields}></TextField>
           }
         <br/><br/>
@@ -108,7 +108,7 @@ export default function UserInfo(){
           }
         <br/><br/>
         <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Email Id:
-          </Typography> <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.emailId}</Typography>
+          </Typography> <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.email}</Typography>
       </CardContent>
     </Card>
     </ThemeProvider>)

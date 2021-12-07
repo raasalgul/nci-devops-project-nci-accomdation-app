@@ -67,7 +67,7 @@ function Header(){
             }
       </div>
       : <div 
-      style={{ backgroundColor: theme.palette.primary.main,color:theme.palette.primary.light,marginBottom:"3em",marginRight:"1em"}}><br/><br/><br/></div>}
+      style={{ backgroundColor: theme.palette.primary.main,color:theme.palette.primary.light,marginBottom:"3em"}}><br/><br/><br/></div>}
         </ThemeProvider>
         )
 }

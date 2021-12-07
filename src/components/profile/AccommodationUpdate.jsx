@@ -3,7 +3,9 @@ import theme from "../themes/Theme"
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import {useState} from 'react';
+import { useContext,useEffect,useState } from 'react';
+import authHeader from '../services/auth-header';
+import {serviceURLHost} from "../constants/Constant"
 import EditIcon from '@mui/icons-material/Edit';
 import { Button, Grid, IconButton, TextField } from '@mui/material';
 
@@ -16,18 +18,32 @@ const useStyles = makeStyles({
   
 
 export default function AccommodationUpdate(){
-    let data={
-      "userId":"234fjsk4543",
-      "area":"Pannal street",
-      "eirCode":"D2W10",
-      "duration":"1 year",
-      "availablity":"01-01-2022",
-      "education":"Master's in Cloud",
-      "work":"Student",
-      "picture":"s3://test-cool/profile-picture/id-18:31:31-IMG_20210925_173906.jpg",
-      "rent":"500 euros",
-      "description":"Clean house"
-  }
+  const [data,setData]= useState(
+    {
+          "userId":"",
+          "area":[""],
+          "eirCode":[""],
+          "duration":"",
+          "availablity":"",
+          "education":"",
+          "work":"",
+          "picture":"",
+          "rent":"",
+          "description":""
+      }
+
+  );
+  useEffect(()=>{
+    fetch(`${serviceURLHost}/accomodation/get`,{ headers: authHeader() }).then((response) => {
+      return response.json();
+    })
+    .then((myJson) => {
+      console.log(myJson)
+      setData(myJson);
+     // setLoad(true);
+      });
+     },[]
+     )
     const [isEdit,setIsEdit]=useState(true);
     const [uploadedFile,setUploadedFile]=useState([{'name':''}]);
     // const [uploadedUrl,setUploadedUrl]=useState({'name':'hi'});
@@ -102,7 +118,8 @@ export default function AccommodationUpdate(){
         <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Picture:
           </Typography>
           {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.picture}</Typography>:
+         <Grid>
+         <Typography variant="h5" component="h2" style={{display: 'inline-block'}}><img src={"data:image/png;base64,"+data.picture.data} alt="logo" width="100 px" height="100 px"/></Typography></Grid>:
           <Grid>
           <input
           accept="image/*"

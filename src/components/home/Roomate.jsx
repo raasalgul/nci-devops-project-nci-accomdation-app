@@ -4,19 +4,28 @@ import Card from './Cards/RoomateCard'
 import Grid from '@material-ui/core/Grid';
 import {UserInfoContext} from "../../App"
 import { useContext,useEffect, useState } from 'react';
-import axios from 'axios';
+import authHeader from '../services/auth-header';
+import {serviceURLHost} from "../constants/Constant"
 
 export default function Profile(){
   const userInfoContext = useContext(UserInfoContext)
   const [roommateData,setroommateData]=useState([]);
     useEffect(()=>{
-      axios.get('http://localhost:8089/roommate/retrieve')
-      .then(res=>{
-        console.log(res.data)
-        setroommateData(res.data)
+      // axios.get('http://localhost:8089/roommate/retrieve')
+      // .then(res=>{
+      //   console.log(res.data)
+      //   setroommateData(res.data)
+      // })
+      fetch(`${serviceURLHost}/roommate/retrieve`,{ headers: authHeader() }).then((response) => {
+        return response.json();
       })
-      },[]
-      )
+      .then((myJson) => {
+        console.log(myJson)
+        setroommateData(myJson);
+       // setLoad(true);
+        });
+       },[]
+       )
     return(<ThemeProvider theme={theme}>
           <Grid container alignItems="center" justifyContent="center" spacing={1}>
         <Grid container alignItems="center" justifyContent="center" item xs={12} spacing={3}>
@@ -32,6 +41,7 @@ export default function Profile(){
     education={value.education}
     work={value.work}
     budget={value.budget}
+    picture={value.picture}
     />
        })
       }
