@@ -83,14 +83,14 @@ export default function AccommodationUpdate(){
         <br/><br/>
           <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Area:</Typography>
           {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.area.join(", ")}</Typography>:
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.area!==undefined && data.area.length>0?data.area.join(", "):""}</Typography>:
           <TextField></TextField>
           }
         <br/><br/>
         <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">EirCode:
           </Typography> 
           {isEdit?
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.eirCode.join(", ")}</Typography>:
+          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.area!==undefined && data.eirCode.length>0?data.eirCode.join(", "):""}</Typography>:
           <TextField></TextField>
           }
         <br/><br/>
@@ -128,7 +128,8 @@ export default function AccommodationUpdate(){
 
           {isEdit?
           <Grid>
-          <Typography variant="h5" component="h2" style={{display: 'inline-block'}}><img src={"data:image/png;base64,"+data.picture.data} alt="logo" width="100 px" height="100 px"/></Typography></Grid>:
+          {/* <Typography variant="h5" component="h2" style={{display: 'inline-block'}}><img src={"data:image/png;base64,"+data.picture!==undefined ? data.picture.data:""} alt="no picture" width="100 px" height="100 px"/></Typography> */}
+          </Grid>:
           <Grid>
           <input
           accept="image/*"
