@@ -6,6 +6,8 @@ import theme from "../themes/Theme"
 import Button from '@mui/material/Button';
 import {useState,useContext,useEffect} from 'react';
 import {UserInfoContext} from "../../App"
+import authService from '../services/auth.service';
+import { useHistory } from "react-router-dom";
 
 
 const useStyle=makeStyles({
@@ -15,8 +17,10 @@ const useStyle=makeStyles({
     }
 })
 
-function Header(){
+function Header(props){
     const classes=useStyle();
+    const history = useHistory();
+
     const userInfoContext = useContext(UserInfoContext)
     const [isAvatarClick,setIsAvatarClick]=useState(false);
     const [isLogin,setIsLogin]=useState(false);
@@ -62,7 +66,11 @@ function Header(){
         </Grid> 
         {isAvatarClick?
        <Grid container justifyContent="flex-end">
-      <Button variant="contained">Logout</Button>
+           <Button variant="contained" onClick={()=>{
+              localStorage.removeItem("user");
+              history.push("/sign-in");
+              window.location.reload(false)
+      }}>Logout</Button>
       </Grid>:null
             }
       </div>

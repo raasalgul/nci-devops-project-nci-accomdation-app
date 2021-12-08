@@ -34,8 +34,8 @@ export default function Profile(){
     return <Card 
     name={'Not yet'}
     age={'Not yet'}
-    area={value.area.join(",")}
-    eirCode={value.eirCode.join(",")}
+    area={value.area}
+    eirCode={value.eirCode}
     duration={value.duration}
     availability={value.availability}
     education={value.education}
