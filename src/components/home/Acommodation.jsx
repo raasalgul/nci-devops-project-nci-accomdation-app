@@ -20,7 +20,7 @@ export default function Profile(){
         return response.json();
       })
       .then((myJson) => {
-        console.log(myJson[0].picture.data)
+        //console.log(myJson[0].picture.data)
         setAccommodationData(myJson);
        // setLoad(true);
         });
@@ -30,10 +30,10 @@ export default function Profile(){
           <Grid container alignItems="center" justifyContent="center" spacing={1}>
         <Grid container alignItems="center" justifyContent="center" item xs={12} spacing={3}>
       {
-       accommodationData.map((value)=>{
+       accommodationData.length>0? accommodationData.map((value)=>{
     return <Card
-    name={"must get"}
-    age={"must get"}
+    name={value.name}
+    age={value.age}
     area={value.area}
     eirCode={value.eirCode}
     duration={value.duration}
@@ -44,7 +44,7 @@ export default function Profile(){
     picture={value.picture}
     // userId={userInfoContext.userInfoState.userId}
     />
-       })
+       }):null
       }
       </Grid>
       </Grid>

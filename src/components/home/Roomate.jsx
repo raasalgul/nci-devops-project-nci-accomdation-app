@@ -32,8 +32,8 @@ export default function Profile(){
       {
        roommateData.map((value)=>{
     return <Card 
-    name={'Not yet'}
-    age={'Not yet'}
+    name={value.name}
+    age={value.age}
     area={value.area}
     eirCode={value.eirCode}
     duration={value.duration}
