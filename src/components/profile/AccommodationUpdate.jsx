@@ -103,7 +103,7 @@ export default function AccommodationUpdate(){
     .then((myJson) => {
       console.log(myJson)
       setData(myJson);
-      setPictureData(myJson.picture.data)
+      setPictureData(myJson.picture!=null?myJson.picture.data:"")
      // setLoad(true);
       });
      },[isEdit]
@@ -215,10 +215,7 @@ export default function AccommodationUpdate(){
             Upload
           </Button>
         </label>
-        {/* <img src={uploadedUrl} alt="uploaded"></img> */}
-        {/* {uploadedFile.map((file)=>{
-          return <Typography>{file.name}</Typography>
-        })} */}
+        <Typography>{picture!=undefined?picture.name:""}</Typography>
         </Grid> }
         </Grid>
           <br/><br/>

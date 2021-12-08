@@ -231,8 +231,7 @@ export default function AccommodationUpdate(){
         </label>
         {/* <img src={uploadedUrl} alt="uploaded"></img> */}
         {
-           <Typography>{picture.name}</Typography>
-        }
+               <Typography>{picture!=undefined?picture.name:""}</Typography>        }
         </Grid> }
         </Grid>
           <br/><br/>
