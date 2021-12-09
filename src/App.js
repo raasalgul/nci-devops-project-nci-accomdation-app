@@ -6,7 +6,7 @@ import {BrowserRouter as Router,Route,Switch,Redirect} from 'react-router-dom'
 
 export const UserInfoContext = createContext()
 
-const initialState = {"userId":localStorage.getItem('user')!==undefined?localStorage.getItem('user').accessToken:"",
+const initialState = {"userId":localStorage.getItem('user')!==undefined||localStorage.getItem('user')!==null?localStorage.getItem('user').accessToken:"",
 "service":"","name":""}
 
 const reducer =(state,action) =>{
