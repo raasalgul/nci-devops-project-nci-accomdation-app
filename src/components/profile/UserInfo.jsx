@@ -37,14 +37,14 @@ export default function UserInfo(){
     requestData.phoneNumber=phoneNumber;
     let header={...authHeader(),'Content-Type':'application/json'}
     const response = await fetch(`${serviceURLHost}/nci/user/put-info`, {
-      method: 'PUT', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
+      method: 'PUT', 
+      mode: 'cors', 
+      cache: 'no-cache', 
+      credentials: 'same-origin', 
       headers: header,
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *client
-      body: JSON.stringify(requestData) // body data type must match "Content-Type" header
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer', 
+      body: JSON.stringify(requestData) 
     });
     return await response.json().then(()=>{
      setData(data)

@@ -59,7 +59,7 @@ function Header(props){
                 setIsAvatarClick((state)=>{return !state});
             }}
             >
-                {userInfoContext.userInfoState.name !== undefined?userInfoContext.userInfoState.name.substring(0,2):""}</Button>
+                {userInfoContext.userInfoState.name !== undefined && userInfoContext.userInfoState.name !== null ?userInfoContext.userInfoState.name.substring(0,2):""}</Button>
             </Grid>
             </Grid>
         </Grid> 

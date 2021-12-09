@@ -74,14 +74,14 @@ export default function AccommodationUpdate(){
     // requestData.phoneNumber=phoneNumber;
     let header={...authHeader()}
     const response = await fetch(`${serviceURLHost}/nci/roommate/add`, {
-      method: 'PUT', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
+      method: 'PUT',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
       headers: header,
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *client
-      body: formData // body data type must match "Content-Type" header
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer', 
+      body: formData
     });
     return await response.json().then(()=>{
      setArea(data.area)
@@ -182,7 +182,12 @@ export default function AccommodationUpdate(){
 
           {isEdit?
           <Grid>
+            {
+              pictureData !== null && pictureData !== undefined ?
            <Typography variant="h5" component="h2" style={{display: 'inline-block'}}><img src={"data:image/png;base64,"+pictureData} alt="not Uploaded" width="100 px" height="100 px"/></Typography>
+           :
+           <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>No image yet </Typography>
+            }
         </Grid>:
           <Grid>
           <input
@@ -209,7 +214,7 @@ export default function AccommodationUpdate(){
         </label>
         {/* <img src={uploadedUrl} alt="uploaded"></img> */}
         {
-               <Typography>{picture!==undefined?picture.name:""}</Typography>        }
+          <Typography>{picture!==undefined && picture!==null?picture.name:""}</Typography>       }
         </Grid> }
         </Grid>
           <br/><br/>
