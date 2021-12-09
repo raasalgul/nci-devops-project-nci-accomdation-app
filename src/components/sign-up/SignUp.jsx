@@ -5,8 +5,10 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from "../themes/Theme"
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import { useContext,useEffect,useState } from 'react';
+import { useState } from 'react';
 import AuthService from "../services/auth.service";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 const useStyle=makeStyles({
   link_style:{
       textDecoration: 'none',
@@ -19,27 +21,28 @@ export default function SignIn(props) {
   const [password,setPassword]=useState('');
   const [retypePassword,setRetypePassword]=useState('');
   const [email,setEmail]=useState('');
+  const [toastMsg,setToastMsg] = useState('')
+  const [isToast,setIsToast] = useState(false)
     let error=React.useState(false);
     const classes=useStyle();
 
     function handleSubmit(){
+      if(password===retypePassword){
       AuthService.register(username,password,email).then(
         (res) => {
           console.log(res)
           props.history.push("/sign-in");
-         // window.location.reload();
         },
         error => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-            // setMessage(resMessage);
-            // setLoading(false);
+          setIsToast(true)
+          setToastMsg('Username or password is incorrect')
         }
       );
+      }
+      else{
+        setIsToast(true)
+        setToastMsg('Password does not match')
+      }
     }
   return (
     <ThemeProvider theme={theme}>
@@ -56,7 +59,6 @@ export default function SignIn(props) {
           onChange={(e)=>{
             setUsername(e.target.value)
           }}
-          //defaultValue="Hello World"
         />
         </Grid>
         <Grid item>
@@ -86,40 +88,17 @@ export default function SignIn(props) {
           error={error[0]}
           id="emailId"
           label="Email Id"
-          //defaultValue="Hello World"
           onChange={(e)=>{
             setEmail(e.target.value)
           }}
         />
         </Grid>
         <Grid item container justifyContent="center" spacing={1}>
-        {/* <Grid item>
-        <TextField
-          error={error[0]}
-          id="mobile"
-          label="Mobile No"
-          onChange={(e)=>{
-            setEmail(e.target.value)
-          }}
-          //defaultValue="Hello World"
-        />
-        </Grid> */}
-        {/* <Grid item justifyContent="center" alignSelf="center">
-        <Button variant="contained" color="secondary">Send Code</Button>
-        </Grid>
-        </Grid>
-        <Grid item container justifyContent="center" spacing={1}>
-        <Grid item>
-        <TextField
-          error={error[0]}
-          id="code"
-          label="Code"
-          //defaultValue="Hello World"
-        />
-        </Grid> */}
-        {/* <Grid item justifyContent="center" alignSelf="center">
-        <Button variant="contained" color="secondary">Verify</Button>
-        </Grid>*/}
+        <Snackbar open={isToast} autoHideDuration={6000} onClose={()=>{setIsToast(false); setToastMsg("")}}>
+  <Alert onClose={()=>{setIsToast(false); setToastMsg("")}} severity="error" sx={{ width: '100%' }}>
+     {toastMsg}
+  </Alert>
+</Snackbar>
         </Grid> 
         <Grid item>
         <Button variant="contained" onClick={handleSubmit} style={{marginRight:"8px"}} color="secondary">Submit</Button>

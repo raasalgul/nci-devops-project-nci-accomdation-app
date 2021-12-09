@@ -1,5 +1,4 @@
 import React from "react";
-import logo from './Itachi.png'
 import { Paper,Grid, Button } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@mui/material/styles';

@@ -1,6 +1,5 @@
 import axios from "axios";
 import {serviceURLHost} from "../constants/Constant"
-import { useHistory } from "react-router-dom";
 
 const API_URL = `${serviceURLHost}/api/auth/`;
 

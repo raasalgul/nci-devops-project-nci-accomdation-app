@@ -3,7 +3,7 @@ import theme from "../themes/Theme"
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { useContext,useEffect,useState } from 'react';
+import { useEffect,useState } from 'react';
 import authHeader from '../services/auth-header';
 import {serviceURLHost} from "../constants/Constant"
 import EditIcon from '@mui/icons-material/Edit';
@@ -49,7 +49,7 @@ export default function AccommodationUpdate(){
 
     async function onSaveHandler() {
 
-      let requestData={... data};
+      let requestData={...data};
       requestData.area=data.area!==area && area!==""?area:data.area;
       requestData.eirCode=data.eirCode!==eirCode && eirCode!==""?eirCode:data.eirCode;
       requestData.duration=data.duration!==duration && duration!==""?duration:data.duration;
@@ -61,14 +61,14 @@ export default function AccommodationUpdate(){
       requestData.rent=data.rent!==rent && rent!==""?rent:data.rent;
       requestData.description=data.description!==description && description!==""?description:data.description;
       requestData=JSON.stringify(requestData)
-      const formData = new FormData;
+      const formData = new FormData();
       formData.append("accomodation", requestData);
       formData.append("file",picture);
 
       // console.log(course)
       console.log(requestData)
       // requestData.phoneNumber=phoneNumber;
-      let header={... authHeader()}
+      let header={...authHeader()}
       const response = await fetch(`${serviceURLHost}/nci/accomodation/add`, {
         method: 'PUT', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
@@ -93,7 +93,7 @@ export default function AccommodationUpdate(){
        setIsEdit((previous)=>!previous)
       }).catch(()=>{
         setIsEdit((previous)=>!previous)
-      }); // parses JSON response into native JavaScript objects
+      }); 
      }
 
   useEffect(()=>{
@@ -104,12 +104,9 @@ export default function AccommodationUpdate(){
       console.log(myJson)
       setData(myJson);
       setPictureData(myJson.picture!=null?myJson.picture.data:"")
-     // setLoad(true);
       });
      },[isEdit]
      )
-    const [uploadedFile,setUploadedFile]=useState();
-    // const [uploadedUrl,setUploadedUrl]=useState({'name':'hi'});
     const classes = useStyles();
     return(<ThemeProvider theme={theme}>
           <Card className={classes.root} variant="outlined">
@@ -182,28 +179,18 @@ export default function AccommodationUpdate(){
           </Typography>
           {isEdit?
          <Grid>
-         <Typography variant="h5" component="h2" style={{display: 'inline-block'}}><img src={"data:image/png;base64,"+pictureData} alt="no picture" width="100 px" height="100 px"/></Typography>
+         <Typography variant="h5" component="h2" style={{display: 'inline-block'}}><img src={"data:image/png;base64,"+pictureData} alt="Not Uploaded" width="100 px" height="100 px"/></Typography>
          </Grid>:
           <Grid>
           <input
           accept="image/*"
-          // className={classes.input}
           style={{ display: 'none' }}
           id="upload-button"
-          //multiple
           type="file"
           onChange={(event)=>{
-            // let files=[];
-            // for(let i=0;i<event.target.files.length;i++)
-            // {
-            //   files.push(event.target.files[i])
-            // }
-            setUploadedFile(event.target.files[0])
             console.log(event.target.files)
             setPicture(event.target.files[0])
             setPictureData(event.target.files[0].data)
-            // console.log(URL.createObjectURL(event.target.files[0]))
-            // setUploadedUrl(URL.createObjectURL(event.target.files[0]))
           }}
         />
         <label htmlFor="upload-button">
@@ -215,7 +202,7 @@ export default function AccommodationUpdate(){
             Upload
           </Button>
         </label>
-        <Typography>{picture!=undefined?picture.name:""}</Typography>
+        <Typography>{picture!==undefined?picture.name:""}</Typography>
         </Grid> }
         </Grid>
           <br/><br/>

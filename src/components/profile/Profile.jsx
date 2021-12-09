@@ -4,7 +4,7 @@ import { Grid } from '@mui/material';
 import UserInfo from './UserInfo'
 import AccommodationUpdate from './AccommodationUpdate';
 import RoomateUpdate from './RoomateUpdate';
-import { useContext,useEffect, useState } from 'react';
+import { useContext } from 'react';
 import {UserInfoContext} from "../../App"
 
 export default function Profile(){

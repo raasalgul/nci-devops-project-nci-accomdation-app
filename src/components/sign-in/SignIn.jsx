@@ -7,7 +7,7 @@ import theme from "../themes/Theme"
 import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import {UserInfoContext} from "../../App"
-import { useContext,useEffect,useState } from 'react';
+import { useContext,useState } from 'react';
 import AuthService from "../services/auth.service";
 
 const useStyle=makeStyles({

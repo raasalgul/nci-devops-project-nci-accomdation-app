@@ -26,15 +26,16 @@ const useStyles = makeStyles({
 
 export default function UserInfo(){
   const [isEdit,setIsEdit]=useState(true);
+  const userInfoContext = useContext(UserInfoContext)
   async function onSave() {
-    let requestData={... data};
+    let requestData={...data};
     requestData.age=age;
     requestData.course=course;
     requestData.services=service;
     console.log(course)
     console.log(requestData)
     requestData.phoneNumber=phoneNumber;
-    let header={... authHeader(),'Content-Type':'application/json'}
+    let header={...authHeader(),'Content-Type':'application/json'}
     const response = await fetch(`${serviceURLHost}/nci/user/put-info`, {
       method: 'PUT', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
@@ -66,16 +67,14 @@ export default function UserInfo(){
     setAge(myJson.age)
     setCourse(myJson.course)
     setPhoneNumber(myJson.phoneNumber)
-    userInfoContext.userInfoDispatch({type:'userState',payload:{... userInfoContext.userInfoState,"service":myJson.services}})
+    userInfoContext.userInfoDispatch({type:'userState',payload:{...userInfoContext.userInfoState,"service":myJson.services}})
     });
     },[isEdit]
     )
     const [data,setData]= useState({});
     const [service, setService] = useState('');
-    const userInfoContext = useContext(UserInfoContext)
     const [age, setAge] = useState('');
     const [course, setCourse] = useState('');
-    const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const classes = useStyles();
     return(<ThemeProvider theme={theme}>
@@ -127,7 +126,7 @@ export default function UserInfo(){
           <Select
           value={service}
           onChange={(event)=>{setService(event.target.value)
-          userInfoContext.userInfoDispatch({type:'userState',payload:{... userInfoContext.userInfoState,"service":event.target.value}})
+          userInfoContext.userInfoDispatch({type:'userState',payload:{...userInfoContext.userInfoState,"service":event.target.value}})
           }}
         >
           <MenuItem value={'Roommate'}>Roommate</MenuItem>
