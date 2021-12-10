@@ -33,6 +33,7 @@ export default function Profile(){
     work={value.work}
     rent={value.rent}
     picture={value.picture}
+    userId={value.userId}
     />
        }):null
       }

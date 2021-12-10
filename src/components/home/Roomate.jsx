@@ -34,6 +34,7 @@ export default function Profile(){
     work={value.work}
     budget={value.budget}
     picture={value.picture}
+    userId={value.userId}
     />
        })
       }

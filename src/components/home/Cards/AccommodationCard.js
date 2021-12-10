@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Paper,Grid, Button } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from "../../themes/Theme"
+import {serviceURLHost} from "../../constants/Constant"
+import authHeader from '../../services/auth-header';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -30,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
   export default function Card(props)  {
+    const [isEmailSent,setIsEmailSent] = useState(false);
+    const [isSuccess,setIsSuccess] = useState(false)
     const classes = useStyles();
     return (
       <ThemeProvider theme={theme}>
@@ -60,6 +66,28 @@ const useStyles = makeStyles((theme) => ({
           >
           <Button variant="contained"
           color="secondary"
+          onClick={ async()=>{
+            let header={...authHeader(),'Content-Type':'application/json'}
+            const response = await fetch(`${serviceURLHost}/nci/user/send-email`, {
+              method: 'POST', 
+              mode: 'cors', 
+              cache: 'no-cache', 
+              credentials: 'same-origin', 
+              headers: header,
+              redirect: 'follow',
+              referrerPolicy: 'no-referrer', 
+              body: props.userId
+            });
+            return await response.json().then(()=>{
+             setIsEmailSent(true)
+             setIsSuccess(true)
+            }).catch(()=>{
+              setIsEmailSent(true)
+             setIsSuccess(false)
+            });
+          }
+
+          }
           >
               Intrested
         </Button>
@@ -68,6 +96,18 @@ const useStyles = makeStyles((theme) => ({
           </Grid>
           </Grid>
         </Paper>
+        {/* <Grid item container justifyContent="center" spacing={1}> */}
+        <Snackbar open={isEmailSent & isSuccess} autoHideDuration={6000} onClose={()=>{setIsEmailSent(false)}}>
+         <Alert onClose={()=>{ setIsEmailSent(false)}} severity="success" sx={{ width: '100%' }}>
+          {'Email Sent Successfully'}
+         </Alert>
+        </Snackbar>
+        <Snackbar open={isEmailSent & !isSuccess} autoHideDuration={6000} onClose={()=>{ setIsEmailSent(false)}}>
+         <Alert onClose={()=>{ setIsEmailSent(false)}} severity="error" sx={{ width: '100%' }}>
+          {'Email failed'}
+         </Alert>
+        </Snackbar>
+        {/* </Grid> */}
       </ThemeProvider>
     );
   }
