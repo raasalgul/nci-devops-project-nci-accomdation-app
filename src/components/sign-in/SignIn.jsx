@@ -78,7 +78,7 @@ export default function SignIn(props) {
         <TextField
           error={error[0]}
           id="userName"
-          label="UserName"
+          label="Username"
           value={username}
           onChange={onChangeUsername}
         />
