@@ -31,15 +31,11 @@ export default function SignIn(props) {
     setMessage("");
     setLoading(true);
 
-    // form.validateAll();
-console.log(message.length)
     if (message.length === 0) {
       AuthService.login(username,password).then(
         (res) => {
-          console.log(res)
           userInfoContext.userInfoDispatch({type:'userState',payload:{"userId":res.accessToken,"name":username}})
           props.history.push("/home");
-         // window.location.reload();
         },
         error => {
           const resMessage =
@@ -85,7 +81,6 @@ console.log(message.length)
           label="UserName"
           value={username}
           onChange={onChangeUsername}
-          //defaultValue="Hello World"
         />
         </Grid>
         <Grid item>
@@ -96,7 +91,6 @@ console.log(message.length)
           type="password"
           value={password}
           onChange={onChangePassword}
-          //defaultValue="Hello World"
           helperText={error[0]?"Incorrect Username or Password.":""}
         />
         </Grid>

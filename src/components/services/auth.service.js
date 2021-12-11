@@ -26,14 +26,7 @@ class AuthService {
       });
   }
 
-  logout() {
-    // const history = useHistory();
-
-    // localStorage.removeItem("user");
-    // window.location.reload(false)
-    // history.push("/");
-  }
-
+  
   register( username,
     password,email) {
     return axios.post(API_URL + "sign-up", {

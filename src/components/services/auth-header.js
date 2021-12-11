@@ -6,9 +6,8 @@ export default function authHeader() {
     let res={};
     res.Authorization='Bearer ' + user.accessToken;
     res.userId=user.id;
-    return {...res}; // for Spring Boot back-end
-    // return { 'x-access-token': user.accessToken };       // for Node.js Express back-end
-  } else {
+    return {...res};
+    } else {
     return {};
   }
 }

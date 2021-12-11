@@ -53,7 +53,7 @@ export default function UserInfo(){
      setService(data.service)
      setPhoneNumber(data.phoneNumber)
      setIsEdit((previous)=>!previous)
-    }); // parses JSON response into native JavaScript objects
+    });
   }
 
   useEffect(()=>{
@@ -101,9 +101,6 @@ export default function UserInfo(){
           <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Name:</Typography>
           {/* {isEdit? */}
           <Typography variant="h5" component="h2" style={{display: 'inline-block'}}>{data.username}</Typography>
-           {/* : <TextField value={data.username} className={classes.textFields}></TextField> */}
-          {/* null */}
-          {/* } */}
         <br/><br/>
         <Typography variant="h5" component="h2" style={{display: 'inline-block'}} color="textSecondary">Age:
           </Typography> 

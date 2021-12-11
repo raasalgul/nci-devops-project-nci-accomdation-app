@@ -59,19 +59,15 @@ export default function AccommodationUpdate(){
     requestData.availablity=data.availablity!==availablity && availablity!==""?availablity:data.availablity;
     requestData.education=data.education!==education && education!==""?education:data.education;
     requestData.work=data.work!==work && work!==""?work:data.work;
-   // requestData.picture=data.picture!==picture && area!==""?picture:data.picture;
     requestData.picture=null;
     requestData.budget=data.budget!==budget && budget!==""?budget:data.budget;
     requestData.description=data.description!==description && description!==""?description:data.description;
     requestData=JSON.stringify(requestData)
     const formData = new FormData();
     formData.append("roommate", requestData);
-    console.log(picture)
     formData.append("file",picture);
 
-    // console.log(course)
     console.log(formData)
-    // requestData.phoneNumber=phoneNumber;
     let header={...authHeader()}
     const response = await fetch(`${serviceURLHost}/nci/roommate/add`, {
       method: 'PUT',
@@ -97,7 +93,7 @@ export default function AccommodationUpdate(){
      setIsEdit((previous)=>!previous)
     }).catch(()=>{
       setIsEdit((previous)=>!previous)
-    }); // parses JSON response into native JavaScript objects
+    });
    }
 
   useEffect(()=>{
@@ -108,7 +104,6 @@ export default function AccommodationUpdate(){
       console.log(myJson)
       setData(myJson);
       setPictureData(myJson.picture!=null?myJson.picture.data:"")
-     // setLoad(true);
       });
      },[isEdit]
      )
@@ -192,7 +187,6 @@ export default function AccommodationUpdate(){
           <Grid>
           <input
           accept="image/*"
-          // className={classes.input}
           style={{ display: 'none' }}
           id="upload-button"
           multiple
@@ -212,7 +206,6 @@ export default function AccommodationUpdate(){
             Upload
           </Button>
         </label>
-        {/* <img src={uploadedUrl} alt="uploaded"></img> */}
         {
           <Typography>{picture!==undefined && picture!==null?picture.name:""}</Typography>       }
         </Grid> }

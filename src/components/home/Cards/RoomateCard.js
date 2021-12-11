@@ -56,7 +56,6 @@ const useStyles = makeStyles((theme) => ({
           <h1><span className={classes.heading}>Area: </span>{props.area}</h1>
           <h1><span className={classes.heading}>EIRCode: </span>{props.eirCode}</h1>
           <h1><span className={classes.heading}>Duration: </span>{props.duration}</h1>
-          <h1><span className={classes.heading}>Availability: </span>{props.availability}</h1>
           <h1><span className={classes.heading}>Education: </span>{props.education}</h1>
           <h1><span className={classes.heading}>Work: </span>{props.work}</h1>
           <h1><span className={classes.heading}>Budget: </span>{props.budget}</h1>
